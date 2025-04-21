@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rental Mobil - Guest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Rental MobilKu</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://wa.me/6281234567890" target="_blank">Hubungi Kami</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Daftar Mobil Tersedia</h2>
+    <div class="row">
+      {% for mobil in daftar_mobil %}
+        <div class="col-md-4">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <img src="https://imgcdn.oto.com/large/gallery/exterior/38/2041/toyota-avanza-veloz-front-angle-low-view-718930.jpg" class="card-img-top" alt="Image of {{ mobil.plat }}">
+              <h5 class="card-title">Plat: {{ mobil.plat }}</h5>
+              <p class="card-text">Status: 
+                {% if mobil.status == 'tersedia' %}
+                  <span class="text-success">Tersedia</span>
+                {% else %}
+                  <span class="text-danger">Disewa</span>
+                {% endif %}
+              </p>
+              {% if mobil.status == 'tersedia' %}
+                <a href="https://wa.me/6281234567890?text=Halo%20saya%20ingin%20sewa%20mobil%20{{ mobil.plat }}" 
+                   class="btn btn-success" target="_blank">Pesan Sekarang</a>
+              {% else %}
+                <button class="btn btn-secondary" onclick="alert('Mobil sedang disewa')" disabled>Tidak Tersedia</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
